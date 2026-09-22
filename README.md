@@ -1,6 +1,6 @@
 # linkedin-operator
 
-Scheduled, AI-written LinkedIn activity driven through an **MCP server** — no LinkedIn API, no
+Scheduled, AI-written LinkedIn activity driven through an **MCP server**, no LinkedIn API, no
 per-token billing. A Python client talks to a browser-automation MCP server over streamable HTTP,
 uses the Claude Code CLI (`claude -p`) to write posts and connection notes, and runs unattended
 from systemd timers.
@@ -19,25 +19,25 @@ systemd timer ──► post_runner.py / linkedin_operator.py
 ```
 
 The server is my fork of [stickerdaniel/linkedin-mcp-server](https://github.com/stickerdaniel/linkedin-mcp-server).
-Upstream is read-focused; I added the write tools this operator needs — `create_post` and
-`like_post` — on branch
+Upstream is read-focused; I added the write tools this operator needs, `create_post` and
+`like_post`, on branch
 [`feat/post-and-like-tools`](https://github.com/chahalhasanpreetsingh-prog/linkedin-mcp-server/tree/feat/post-and-like-tools).
 
 ## Two entry points
 
-**`linkedin_operator.py [post|like|connect|all]`** — the daily operator.
-- **post** — picks the next content pillar, feeds a voice guide to Claude with a strict
+**`linkedin_operator.py [post|like|connect|all]`**, the daily operator.
+- **post**: picks the next content pillar, feeds a voice guide to Claude with a strict
   "one moment, one idea, one number" prompt, dedupes against recently used topics, publishes.
   Capped at 4 posts/week.
-- **like** — pulls the feed and likes relevant posts with randomized 4–12 s spacing.
-- **connect** — searches 2nd-degree people, reads each profile, has Claude write a <200-char
+- **like**: pulls the feed and likes relevant posts with randomized 4–12 s spacing.
+- **connect**: searches 2nd-degree people, reads each profile, has Claude write a <200-char
   note specific to that profile, sends the request. Falls back to a note-less request when
   LinkedIn's custom-note quota is hit.
 - A **ramp-up schedule** grows volume over the first 11 days (posts only → up to 30 likes and
   20 connections/day) so a fresh automation doesn't jump straight to full volume.
 - Daily counters and the ramp start date persist in `operator_state.json`.
 
-**`post_runner.py`** — a one-shot queue publisher. Each timer fire: start Xvfb + the MCP container,
+**`post_runner.py`**: a one-shot queue publisher. Each timer fire: start Xvfb + the MCP container,
 wait for health, do the MCP handshake, publish the next queued post, **close the browser
 session**, stop both services, advance the queue. When the queue is empty it disables its own
 timer. Nothing runs between posts.
@@ -53,7 +53,7 @@ runner goes further by stopping the whole stack. Load went back to **~0.67**.
 
 1. Build and run the MCP server from the fork (see `deploy/linkedin-mcp.service`; needs
    `deploy/xvfb.service` for the headful browser). Log in once so the profile dir holds a session.
-2. Install [Claude Code](https://docs.claude.com/claude-code) and log in — posts and notes are
+2. Install [Claude Code](https://docs.claude.com/claude-code) and log in, posts and notes are
    generated with `claude -p`, using your existing subscription.
 3. `pip install fastmcp`
 4. Copy and edit the examples:
