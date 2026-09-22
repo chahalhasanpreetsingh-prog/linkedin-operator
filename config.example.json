@@ -1,0 +1,24 @@
+{
+  "author_name": "Your Name",
+  "author_about": "DevOps & AI platform engineer. Connects with engineers, founders and operators who build real systems. Direct, specific, no buzzwords.",
+  "guide_file": "post_guide.md",
+  "content_pillars": [
+    "Engineering & Technical",
+    "Founder & Operator",
+    "Crossover (Military→Business→Tech)",
+    "Narrative & Personal"
+  ],
+  "crossover_pillar": "Crossover (Military→Business→Tech)",
+  "like_search_queries": [
+    "DevOps engineering",
+    "AI platform engineering",
+    "Docker production infrastructure",
+    "RAG retrieval augmented generation",
+    "homelab self-hosted infrastructure"
+  ],
+  "connect_search_queries": [
+    "DevOps engineer",
+    "AI platform engineer",
+    "indie hacker founder"
+  ]
+}

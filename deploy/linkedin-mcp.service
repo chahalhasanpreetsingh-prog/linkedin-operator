@@ -1,0 +1,27 @@
+[Unit]
+Description=LinkedIn MCP Server (Patchright browser automation)
+After=docker.service xvfb.service
+Requires=docker.service
+
+[Service]
+# Image built from the fork with create_post / like_post:
+#   github.com/chahalhasanpreetsingh-prog/linkedin-mcp-server (branch feat/post-and-like-tools)
+ExecStartPre=-/usr/bin/docker rm -f linkedin-mcp
+ExecStart=/usr/bin/docker run --rm \
+  --name linkedin-mcp \
+  -p 127.0.0.1:18810:8000 \
+  -e DISPLAY=:1 \
+  -e LOG_LEVEL=WARNING \
+  -v /home/YOUR_USER/.linkedin-mcp:/home/pwuser/.linkedin-mcp \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  linkedin-mcp-custom:latest \
+  --transport streamable-http --host 0.0.0.0 --port 8000 --path /mcp \
+  --user-data-dir /home/pwuser/.linkedin-mcp/profile \
+  --log-level WARNING
+ExecStop=/usr/bin/docker stop linkedin-mcp
+Restart=always
+RestartSec=10
+User=YOUR_USER
+
+[Install]
+WantedBy=multi-user.target

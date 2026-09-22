@@ -1,0 +1,11 @@
+[Unit]
+Description=Fire the queued-post runner every 2 days
+
+[Timer]
+OnCalendar=*-*-01/2 10:00:00
+Persistent=true
+RandomizedDelaySec=900
+Unit=linkedin-queued-posts.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,7 @@
+[Unit]
+Description=Post the next queued LinkedIn post, then stop the browser stack
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/linkedin-operator/post_runner.py
+TimeoutStartSec=900
