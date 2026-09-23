@@ -5,7 +5,7 @@ per-token billing. A Python client talks to a browser-automation MCP server over
 uses the Claude Code CLI (`claude -p`) to write posts and connection notes, and runs unattended
 from systemd timers.
 
-It runs in production on my homelab, publishing my own posts.
+It runs in production on my own infrastructure, publishing my own posts.
 
 ```
 systemd timer ──► post_runner.py / linkedin_operator.py
